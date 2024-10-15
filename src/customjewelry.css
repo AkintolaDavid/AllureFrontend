@@ -1,0 +1,60 @@
+/* Custom styles for range input */
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+  width: 100%; /* Full width */
+}
+
+/* WebKit browsers (Chrome, Safari) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Remove default thumb */
+  appearance: none; /* Remove default thumb */
+  width: 25px; /* Thumb width */
+  height: 25px; /* Thumb height */
+  background-color: white; /* Thumb color */
+  border-radius: 50%; /* Make it round */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Mozilla Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  background-color: white; /* Thumb color */
+  border-radius: 50%; /* Make it round */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Internet Explorer */
+input[type="range"]::-ms-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  background-color: white; /* Thumb color */
+  border-radius: 50%; /* Make it round */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+/* Custom styles for radio buttons */
+input[type="radio"] {
+  appearance: none; /* Remove default styling */
+  width: 16px; /* Size of the radio button */
+  height: 16px; /* Size of the radio button */
+  border: 2px solid #858585;
+  border-radius: 50%; /* Make it round */
+  cursor: pointer; /* Pointer cursor on hover */
+  outline: none; /* Remove outline */
+  position: relative; /* Position relative for after pseudo-element */
+}
+
+/* Active state */
+input[type="radio"]:checked {
+  background-color: white; /* Change background when checked */
+}
+
+/* Inner circle */
+/* styles.css */
+.select-blue option:first-child {
+  color: rgb(87, 87, 87); /* Color for the first option */
+}
+
+.select-blue option {
+  color: black; /* Color for the other options */
+}
