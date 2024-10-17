@@ -11,7 +11,18 @@ import Items from "./Items";
 
 export default function LatestProduct() {
   const [products, setProducts] = useState([]);
+  const [apiData, setApiData] = useState(null);
 
+  useEffect(() => {
+    axios
+      .get("https://allureserver.onrender.com/api/test")
+      .then((response) => {
+        setApiData(response.data);
+      })
+      .catch((err) => {
+        console.log("Error fetching API data");
+      });
+  }, []);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -33,7 +44,9 @@ export default function LatestProduct() {
         <span className="text-2xl md:text-3xl text-center mb-10">
           Our Latest Products
         </span>
-
+        <p>
+          <strong>Message:</strong> {apiData.message}
+        </p>
         <div className="w-[90%]">
           <Swiper
             cssMode={true}
