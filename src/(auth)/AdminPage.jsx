@@ -13,6 +13,7 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchCustomizes = async () => {
       const token = localStorage.getItem("adminToken");
+
       try {
         console.log(token);
         const response = await axios.get(
