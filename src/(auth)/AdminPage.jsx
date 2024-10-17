@@ -9,12 +9,21 @@ const AdminPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
+
   useEffect(() => {
     const fetchCustomizes = async () => {
+      const token = localStorage.getItem("adminToken");
       try {
+        console.log("try");
         const response = await axios.get(
           "https://allureserver.onrender.com/api/customizes",
-          { withCredentials: true } // If you're using cookies for authentication
+          { withCredentials: true },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          } // If you're using cookies for authentication
         );
         setCustomizes(response.data);
       } catch (err) {
