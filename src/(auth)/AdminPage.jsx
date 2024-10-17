@@ -14,17 +14,18 @@ const AdminPage = () => {
     const fetchCustomizes = async () => {
       const token = localStorage.getItem("adminToken");
       try {
-        console.log("try");
+        console.log(token);
         const response = await axios.get(
           "https://allureserver.onrender.com/api/customizes",
-          { withCredentials: true },
           {
+            withCredentials: true,
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-          } // If you're using cookies for authentication
+          }
         );
+
         setCustomizes(response.data);
       } catch (err) {
         setError("Failed to fetch customizations");

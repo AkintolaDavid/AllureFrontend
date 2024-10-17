@@ -5,7 +5,7 @@ import { verifyAdmin } from "../store/adminSlice";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
-const AdminVerifyOtp = ({ onVerify }) => {
+const AdminVerifyOtp = () => {
   const dispatch = useDispatch();
   const [otp1, setOtp1] = useState("");
   const [otp2, setOtp2] = useState("");
