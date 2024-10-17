@@ -9,18 +9,6 @@ const AdminPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const toast = useToast();
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken"); // Remove the token from localStorage
-    toast({
-      title: "Admin logged out successfully",
-      // description: "You have signed in successfully!",
-      position: "top-right",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-    navigate("/adminrequestotp"); // Redirect to OTP verification page
-  };
   useEffect(() => {
     const fetchCustomizes = async () => {
       try {
@@ -36,6 +24,18 @@ const AdminPage = () => {
 
     fetchCustomizes(); // Fetch customizations when the component mounts
   }, []); // No dependencies, fetch only once
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken"); // Remove the token from localStorage
+    toast({
+      title: "Admin logged out successfully",
+      // description: "You have signed in successfully!",
+      position: "top-right",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    navigate("/adminrequestotp"); // Redirect to OTP verification page
+  };
   const handleuploadproduct = () => {
     navigate("/uploadproduct");
   };
@@ -161,5 +161,4 @@ const AdminPage = () => {
     </div>
   );
 };
-
 export default AdminPage;

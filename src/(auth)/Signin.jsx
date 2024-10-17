@@ -158,6 +158,7 @@ const Signin = () => {
 
           <button
             type="submit"
+            onClick={handleSubmit}
             className="flex items-center justify-center bg-[#fdb0be] h-10 w-[280px] sm:w-80 mt-5 mb-7 rounded-md text-white text-md font-semibold"
           >
             Sign In
