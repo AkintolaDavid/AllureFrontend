@@ -69,7 +69,7 @@ const UploadProduct = () => {
 
     try {
       const response = await axios.post(
-        "https://allureserver.onrender.com/api/products",
+        "https://allureserver.onrender.com/api/uploadproducts",
         productData
       );
       setCategory("");

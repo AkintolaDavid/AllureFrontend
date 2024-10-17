@@ -13,7 +13,8 @@ const AdminPage = () => {
     const fetchCustomizes = async () => {
       try {
         const response = await axios.get(
-          "https://allureserver.onrender.com/api/customizes"
+          "https://allureserver.onrender.com/api/customizes",
+          { withCredentials: true } // If you're using cookies for authentication
         );
         setCustomizes(response.data);
       } catch (err) {

@@ -44,7 +44,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://allureserver.onrender.com",
+  "proxy": "https://allure-frontend-mu.vercel.app",
   "eslintConfig": {
     "extends": [
       "react-app",
