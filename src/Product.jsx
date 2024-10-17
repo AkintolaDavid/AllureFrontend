@@ -14,7 +14,9 @@ export default function Product() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`/api/products/${productId}`); // Ensure the URL is correct
+        const response = await fetch(
+          `https://allureserver.onrender.com/api/products/${productId}`
+        ); // Ensure the URL is correct
         if (!response.ok) {
           throw new Error("Failed to fetch product");
         }

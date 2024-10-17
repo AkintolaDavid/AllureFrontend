@@ -16,7 +16,7 @@ export default function Cart() {
 
   useEffect(() => {
     axios
-      .get("/api/products")
+      .get("https://allureserver.onrender.com/api/products")
       .then((res) => {
         if (Array.isArray(res.data.products)) {
           setProducts(res.data.products);
