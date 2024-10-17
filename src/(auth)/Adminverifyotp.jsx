@@ -19,7 +19,10 @@ const AdminVerifyOtp = ({ onVerify }) => {
     const otp = otp1 + otp2 + otp3 + otp4; // Combine all OTP inputs
 
     try {
-      const response = await axios.post("/api/verify-otp", { otp });
+      const response = await axios.post(
+        "https://allureserver.onrender.com/api/verify-otp",
+        { otp }
+      );
       if (response.data.success) {
         localStorage.setItem("adminToken", response.data.token); // Store token
         toast({
