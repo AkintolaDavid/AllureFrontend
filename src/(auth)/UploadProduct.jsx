@@ -35,11 +35,17 @@ const UploadProduct = () => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "allure"); // Cloudinary preset
-
+      const token = localStorage.getItem("adminToken");
       try {
         const res = await axios.post(
           "https://api.cloudinary.com/v1_1/dvdisnwqt/image/upload",
-          formData
+          formData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         console.log("Uploaded image URL:", res.data.secure_url); // Log each uploaded URL
         uploadedImages.push(res.data.secure_url); // Push Cloudinary image URL to array
