@@ -22,6 +22,7 @@ export default function LatestProduct() {
       .catch((err) => {
         console.log("Error fetching API data");
       });
+    console.log(apiData);
   }, []);
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,9 +45,7 @@ export default function LatestProduct() {
         <span className="text-2xl md:text-3xl text-center mb-10">
           Our Latest Products
         </span>
-        <p>
-          <strong>Message:</strong> {apiData.message}
-        </p>
+        <p>{/* <strong>Message:</strong> {apiData.message} */}</p>
         <div className="w-[90%]">
           <Swiper
             cssMode={true}
