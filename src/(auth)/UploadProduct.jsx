@@ -36,6 +36,7 @@ const UploadProduct = () => {
       formData.append("file", file);
       formData.append("upload_preset", "allure"); // Cloudinary preset
       const token = localStorage.getItem("adminToken");
+      console.log(token);
       try {
         const res = await axios.post(
           "https://api.cloudinary.com/v1_1/dvdisnwqt/image/upload",

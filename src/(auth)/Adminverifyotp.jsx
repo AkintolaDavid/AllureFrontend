@@ -24,6 +24,7 @@ const AdminVerifyOtp = ({ onVerify }) => {
         { otp }
       );
       if (response.data.success) {
+        console.log(response.data.token);
         localStorage.setItem("adminToken", response.data.token); // Store token
         toast({
           title: response.data.message,
