@@ -10,7 +10,10 @@ const AdminRequestOtp = () => {
   const toast = useToast();
   const sendOTP = async () => {
     try {
-      const response = await axios.post("/api/send-otp", { email });
+      const response = await axios.post(
+        "https://allureserver.onrender.com/api/send-otp",
+        { email }
+      );
 
       if (response.data.success) {
         toast({

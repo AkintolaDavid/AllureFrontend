@@ -32,18 +32,34 @@ export default function Footer() {
         </div>
       </div>
       <div className="flex justify-center gap-8 md:gap-10 mt-5 sm:mt-6">
-        <div>
+        <a
+          href="https://wa.me/+2349052148104"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <BsWhatsapp className="text-xl sm:text-2xl" />
-        </div>
-        <div>
+        </a>
+        <a
+          href="mailto:nkemdilimoganah@gmail.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <MdOutlineMail className="text-xl sm:text-2xl" />
-        </div>
-        <div>
+        </a>
+        <a
+          href="https://www.instagram.com/allure__beauty____/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaInstagram className="text-xl sm:text-2xl" />
-        </div>
-        <div>
+        </a>
+        <a
+          href="https://snapchat.com/add/nkemm_j"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <FaSnapchat className="text-xl sm:text-2xl" />
-        </div>
+        </a>
       </div>
       <hr className="h-0.5 w-[80vw] bg-black mt-5 md:mt-7" />
       <span className=" flex items-center justify-center mt-3 mb-3 text-sm">
