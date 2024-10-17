@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useToast } from "@chakra-ui/react";
+import axios from "axios";
 
 export default function ImageUpload({ onImagesUploaded }) {
   const [selectedImages, setSelectedImages] = useState([]); // Store selected images for preview
@@ -20,12 +21,16 @@ export default function ImageUpload({ onImagesUploaded }) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("upload_preset", upload_preset);
-
-        const response = await fetch(
+        const token = localStorage.getItem("adminToken");
+        const response = await axios.post(
           `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+
+          formData,
           {
-            method: "POST",
-            body: formData,
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
