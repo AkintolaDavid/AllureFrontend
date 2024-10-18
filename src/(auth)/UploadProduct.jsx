@@ -40,13 +40,13 @@ const UploadProduct = () => {
       try {
         const res = await axios.post(
           "https://api.cloudinary.com/v1_1/dvdisnwqt/image/upload",
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          formData
+          // {
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     Authorization: `Bearer ${token}`,
+          //   },
+          // }
         );
         console.log("Uploaded image URL:", res.data.secure_url); // Log each uploaded URL
         uploadedImages.push(res.data.secure_url); // Push Cloudinary image URL to array

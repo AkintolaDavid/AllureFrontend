@@ -106,18 +106,18 @@ function App() {
               <Route
                 path="/uploadproduct"
                 element={
-                  <ProtectedAdminRoute>
-                    <UploadProduct />
-                  </ProtectedAdminRoute>
+                  // <ProtectedAdminRoute>
+                  <UploadProduct />
+                  // </ProtectedAdminRoute>
                 }
               />
 
               <Route
                 path="/adminpage"
                 element={
-                  <ProtectedAdminRoute>
-                    <AdminPage />
-                  </ProtectedAdminRoute>
+                  // <ProtectedAdminRoute>
+                  <AdminPage />
+                  // </ProtectedAdminRoute>
                 }
               />
             </Routes>

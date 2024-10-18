@@ -17,14 +17,14 @@ const AdminPage = () => {
       try {
         console.log(token);
         const response = await axios.get(
-          "https://allureserver.onrender.com/api/customizes",
-          {
-            withCredentials: true,
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          "https://allureserver.onrender.com/api/customizes"
+          // {
+
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     Authorization: `Bearer ${token}`,
+          //   },
+          // }
         );
 
         setCustomizes(response.data);
