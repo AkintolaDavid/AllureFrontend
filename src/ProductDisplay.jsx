@@ -33,7 +33,7 @@ export default function ProductDisplay({ product }) {
 
   return (
     <div className="flex flex-col md:flex-row justify-center">
-      <div className="flex flex-col-reverse md:flex-row gap-3 items-center">
+      <div className="flex flex-col-reverse md:flex-row items-center">
         <div className="flex flex-row md:flex-col gap-3">
           {product.images.map((img, index) => (
             <img
@@ -45,7 +45,7 @@ export default function ProductDisplay({ product }) {
           ))}
         </div>
       </div>
-      <div className="pl-[8%] sm:pl-[6%] flex flex-col max-w-[90%] md:max-w-[350px] lg:max-w-[530px] lg:h-[548px] justify-start mt-5 md:mt-0">
+      <div className="pl-[8%] sm:pl-[6%] flex flex-col max-w-[90%] md:max-w-[350px] lg:max-w-[530px] justify-start mt-5 md:mt-0">
         <span className="text-xl md:text-2xl lg:text-3xl font-semibold">
           {product.name}
         </span>
