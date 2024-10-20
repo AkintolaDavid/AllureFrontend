@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProductDisplay from "./ProductDisplay";
-// import RelatedProduct from "./RelatedProduct";
+import RelatedProduct from "./RelatedProduct";
 import { Breadcrum } from "./Breadcrum";
 
 export default function Product() {
@@ -73,9 +73,9 @@ export default function Product() {
 
   return (
     <div>
-      {/* <Breadcrum product={product} /> */}
+      <Breadcrum product={product} />
       <ProductDisplay product={product} />
-      {/* <RelatedProduct relatedproducts={relatedProducts} /> */}
+      <RelatedProduct />
     </div>
   );
 }

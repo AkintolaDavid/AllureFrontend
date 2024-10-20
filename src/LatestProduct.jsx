@@ -14,17 +14,6 @@ export default function LatestProduct() {
   const [apiData, setApiData] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("https://allureserver.onrender.com/api/test")
-      .then((response) => {
-        setApiData(response.data);
-      })
-      .catch((err) => {
-        console.log("Error fetching API data");
-      });
-    console.log(apiData);
-  }, []);
-  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(

@@ -1,76 +1,92 @@
-// import React, { useState } from "react";
-// // Import Swiper React components
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { useContext } from "react";
-// import { ShopContext } from "./Context/ShopContext";
-// import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-// import "./swiperCustom.css";
-// // Import required modules
-// import "./swiperCustom.css";
-// import {
-//   Navigation,
-//   Pagination,
-//   Mousewheel,
-//   Keyboard,
-//   A11y,
-// } from "swiper/modules";
-// import { Link } from "react-router-dom";
-// import { Items } from "./Items";
-// export default function RelatedProduct({ relatedproducts = [] }) {
-//   const { selectedCategory } = useContext(ShopContext);
-//   console.log("Selected Category:", selectedCategory); // Log the selected category
+import React, { useState } from "react";
+// Import Swiper React components
+import axios from "axios";
+import { useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useContext } from "react";
+import { ShopContext } from "./Context/ShopContext";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "./swiperCustom.css";
+// Import required modules
+import "./swiperCustom.css";
+import {
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+  A11y,
+} from "swiper/modules";
+import Items from "./Items";
+export default function RelatedProduct({ relatedproducts = [] }) {
+  const [products, setProducts] = useState([]);
+  const [apiData, setApiData] = useState(null);
+  const { selectedCategory } = useContext(ShopContext);
+  console.log("Selected Category:", selectedCategory);
 
-//   return (
-//     <>
-//       <div className="flex flex-col items-center justify-center mt-9 sm:mt-14 px-4 py-7 mb-0 sm:mb-20">
-//         <span className="text-2xl md:text-3xl text-center mb-3 sm:mb-6">
-//           Related Products
-//         </span>
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          "https://allureserver.onrender.com/api/getproducts"
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-//         <div className="max-w-screen-lg w-full">
-//           <Swiper
-//             pagination={{ clickable: true }}
-//             cssMode={true}
-//             navigation={true}
-//             mousewheel={true}
-//             keyboard={true}
-//             modules={[Navigation, Mousewheel, Pagination, Keyboard]}
-//             className="mySwiper"
-//             breakpoints={{
-//               150: {
-//                 slidesPerView: 2,
-//                 spaceBetween: 10,
-//               },
-//               780: {
-//                 slidesPerView: 3,
-//                 spaceBetween: 15,
-//               },
-//               1024: {
-//                 slidesPerView: 4,
-//                 spaceBetween: 20,
-//               },
-//             }}
-//           >
-//             {all_product.map((product) => (
-//               <SwiperSlide key={product.id}>
-//                 <Items
-//                   key={product.id}
-//                   id={product.id}
-//                   name={product.name}
-//                   image={product.image}
-//                   price={product.price}
-//                   // filtereditem={filteredItems}
-//                 />
-//                 <button className="text-center bg-white text-black px-4 py-7 sm:py-4 rounded-full opacity-0 ">
-//                   Add to Cartss
-//                 </button>
-//               </SwiperSlide>
-//             ))}
-//           </Swiper>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+    fetchProducts();
+  }, []);
+  return (
+    <>
+      <div className="flex flex-col items-center justify-center mt-9 sm:mt-14 px-4 py-7 mb-0 sm:mb-20">
+        <span className="text-2xl md:text-3xl text-center mb-3 sm:mb-6">
+          Related Products
+        </span>
+
+        <div className="max-w-screen-lg w-full">
+          <Swiper
+            pagination={{ clickable: true }}
+            cssMode={true}
+            navigation={true}
+            mousewheel={true}
+            keyboard={true}
+            modules={[Navigation, Mousewheel, Pagination, Keyboard]}
+            className="mySwiper"
+            breakpoints={{
+              360: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              1000: {
+                slidesPerView: 4,
+                spaceBetween: 15,
+              },
+              1300: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
+            }}
+          >
+            {products.map((product) => (
+              <SwiperSlide key={product.id} className="mr-2 lg:ml-16">
+                <Items
+                  key={product._id}
+                  id={product._id}
+                  name={product.name}
+                  image={product.images}
+                  price={product.price}
+                  description={product.description}
+                  liked={product.liked}
+                />
+                <div className="h-16"></div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+    </>
+  );
+}
