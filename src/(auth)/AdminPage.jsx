@@ -28,7 +28,7 @@ const AdminPage = () => {
         );
         const allProducts = response.data.products;
         console.log(allProducts);
-        // setCustomizes(response.data);
+        setCustomizes(allProducts);
       } catch (err) {
         setError("Failed to fetch customizations");
         console.error("Error fetching customizations:", err);
@@ -125,7 +125,7 @@ const AdminPage = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {customizes.map((customItem, index) => (
+            {customizes.map((customItem, index) => (
               <tr key={index}>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
                   {customItem.userId}
@@ -167,7 +167,7 @@ const AdminPage = () => {
                   {customItem.images}
                 </td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>
