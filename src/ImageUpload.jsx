@@ -21,17 +21,10 @@ export default function ImageUpload({ onImagesUploaded }) {
         const formData = new FormData();
         formData.append("file", file);
         formData.append("upload_preset", upload_preset);
-        const token = localStorage.getItem("adminToken");
         const response = await axios.post(
           `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
 
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          formData
         );
 
         if (!response.ok) {
