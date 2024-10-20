@@ -30,6 +30,7 @@ export default function RelatedProduct({ relatedproducts = [] }) {
           "https://allureserver.onrender.com/api/getproducts"
         );
         setProducts(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -39,7 +40,7 @@ export default function RelatedProduct({ relatedproducts = [] }) {
   }, []);
   return (
     <>
-      <div className="flex flex-col items-center justify-center mt-9 sm:mt-14 px-4 py-7 mb-0 sm:mb-20">
+      <div className="flex flex-col items-center justify-center mt-4 sm:mt-7 px-4 py-7 mb-0 sm:mb-20">
         <span className="text-2xl md:text-3xl text-center mb-3 sm:mb-6">
           Related Products
         </span>

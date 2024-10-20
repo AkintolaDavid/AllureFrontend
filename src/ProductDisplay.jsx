@@ -32,7 +32,7 @@ export default function ProductDisplay({ product }) {
   const sizeOptions = getSizeOptions(product.category);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center">
+    <div className="flex flex-col md:flex-row mt-0 md:mt-4 justify-center">
       <div className="flex flex-col-reverse md:flex-row items-center">
         <div className="flex flex-row md:flex-col gap-3">
           {product.images.map((img, index) => (
