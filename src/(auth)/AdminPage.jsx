@@ -13,7 +13,6 @@ const AdminPage = () => {
   useEffect(() => {
     const fetchCustomizes = async () => {
       try {
-        console.log(token);
         const response = await axios.get(
           "https://allureserver.onrender.com/api/customizes"
           // {
