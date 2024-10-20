@@ -17,7 +17,7 @@ export const Breadcrum = (props) => {
     : [product.category];
 
   return (
-    <div className="flex items-center text-[13px] sm:text-sm text-[#434141] ml-5 sm:ml-10 md:ml-36 mt-8 mb-8">
+    <div className="flex items-center text-[14px] sm:text-[16px] md:text-[18px] sm:text-sm text-[#434141] ml-5 sm:ml-10 md:ml-36 mt-8 mb-8">
       {/* Home link */}
       <Link to="/">HOME</Link> <FaChevronRight className="ml-2 mr-2" />
       {/* Map over categories and display them as links */}

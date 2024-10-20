@@ -44,14 +44,13 @@ export default function RelatedProduct({ relatedproducts = [] }) {
           Related Products
         </span>
 
-        <div className="max-w-screen-lg w-full">
+        <div className="w-[90%]">
           <Swiper
             pagination={{ clickable: true }}
             cssMode={true}
-            navigation={true}
             mousewheel={true}
             keyboard={true}
-            modules={[Navigation, Mousewheel, Pagination, Keyboard]}
+            modules={[Mousewheel, Pagination, Keyboard]}
             className="mySwiper"
             breakpoints={{
               360: {

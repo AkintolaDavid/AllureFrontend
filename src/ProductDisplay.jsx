@@ -39,26 +39,26 @@ export default function ProductDisplay({ product }) {
             <img
               key={index}
               src={img}
-              className="h-60 w-60 sm:h-80 sm:w-80 md:h-96 md:w-96"
+              className="h-60 w-60 sm:h-80 sm:w-80 md:h-96 md:w-96 rounded-10px"
               alt={`product-${index}`}
             />
           ))}
         </div>
       </div>
-      <div className="pl-[8%] sm:pl-[6%] flex flex-col max-w-[90%] md:max-w-[350px] lg:max-w-[530px] lg:h-[548px] justify-center mt-5 md:mt-0">
+      <div className="pl-[8%] sm:pl-[6%] flex flex-col max-w-[90%] md:max-w-[350px] lg:max-w-[530px] lg:h-[548px] justify-start mt-5 md:mt-0">
         <span className="text-xl md:text-2xl lg:text-3xl font-semibold">
           {product.name}
         </span>
-        <span className="flex items-center text-2xl mt-3 md:mt-0">
+        <span className="flex items-center text-2xl mt-5 md:mt-0">
           <TbCurrencyNaira className="text-3xl" />
           {product.price}
         </span>
-        <span className="md:text-[12px] lg:text-[14px] mt-3 md:mt-0">
+        <span className="md:text-[12px] lg:text-[14px] mt-5 md:mt-0">
           {product.description}
         </span>
 
         {sizeOptions && (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mt-3">
             <span className="text-xl font-semibold">Select size</span>
             <div className="flex flex-wrap gap-2 w-full">
               {sizeOptions.map((size) => (
@@ -66,7 +66,7 @@ export default function ProductDisplay({ product }) {
                   key={size}
                   onClick={() => setSelectedSize(size)}
                   className={`border-[1px] py-1 px-4 border-black cursor-pointer ${
-                    selectedSize === size ? "bg-gray-300" : ""
+                    selectedSize === size ? "bg-gray-700 text-white" : ""
                   }`}
                 >
                   {size}
@@ -80,7 +80,7 @@ export default function ProductDisplay({ product }) {
         )}
 
         <button
-          className="bg-[#fab6c2] font-semibold w-full px-2 py-3 rounded-md text-white mt-8 text-lg"
+          className="bg-[#fab6c2] font-semibold w-full px-2 py-3 rounded-md text-white mt-5 text-lg"
           onClick={() => {
             if (sizeOptions && !selectedSize) {
               toast({
