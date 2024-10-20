@@ -23,22 +23,14 @@ export default function ImageUpload({ onImagesUploaded }) {
         formData.append("upload_preset", upload_preset);
         const response = await axios.post(
           `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
-
           formData
         );
 
-        if (!response.ok) {
-          toast({
-            title: "Upload failed",
-            // description: "You have signed in successfully!",
-            position: "top-right",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
+        if (response.status !== 200) {
+          throw new Error("Upload failed");
         }
 
-        const data = await response.json();
+        const data = response.data;
         uploadedImages.push(data.secure_url); // Push the URL of the uploaded image
       });
 
@@ -46,16 +38,14 @@ export default function ImageUpload({ onImagesUploaded }) {
       onImagesUploaded(uploadedImages); // Pass the uploaded images to the parent component
       toast({
         title: "Images uploaded successfully!",
-        // description: "You have signed in successfully!",
         position: "top-right",
         status: "success",
         duration: 5000,
         isClosable: true,
-      }); // Alert on success
+      });
     } catch (error) {
       toast({
-        title: "Images uploaded failed!",
-        // description: "You have signed in successfully!",
+        title: "Image upload failed!",
         position: "top-right",
         status: "error",
         duration: 5000,
@@ -75,17 +65,16 @@ export default function ImageUpload({ onImagesUploaded }) {
         accept="image/*"
         onChange={handleFileUpload}
       />
-      {/* Allow multiple file uploads */}
-      {loading && <p>Uploading...</p>} {/* Loading message */}
+      {loading && <p>Uploading...</p>}
       {selectedImages.length > 0 && (
         <div>
           <h2>Uploaded Images:</h2>
           {selectedImages.map((image, index) => (
             <img
               key={index}
-              src={image} // Use the local URL here for preview
+              src={image}
               alt={`Item Preview ${index + 1}`}
-              style={{ width: "100px", height: "100px", margin: "5px" }} // Adjust dimensions as needed
+              style={{ width: "100px", height: "100px", margin: "5px" }}
             />
           ))}
         </div>
