@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux"; // Import useDispatch hook
 import { verifyAdmin } from "../store/adminSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
 const AdminVerifyOtp = () => {
@@ -118,12 +118,12 @@ const AdminVerifyOtp = () => {
         <div className="text-center">
           <p>
             Didn't receive otp?
-            <a
-              href="/adminrequestotp"
+            <Link
+              to="/adminrequestotp"
               className="text-[#fdb0be] underline underline-offset-1 ml-2"
             >
               Click to request again
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -26,7 +26,8 @@ const AdminPage = () => {
           //   },
           // }
         );
-
+        const allProducts = response.data.products;
+        console.log(allProducts);
         setCustomizes(response.data);
       } catch (err) {
         setError("Failed to fetch customizations");
