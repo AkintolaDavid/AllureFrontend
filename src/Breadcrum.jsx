@@ -10,17 +10,23 @@ const capitalizeFirstLetter = (word) => {
 export const Breadcrum = (props) => {
   const { product } = props;
   console.log(product);
+
+  // Check if category is a string (for single category) or an array (for multiple categories)
+  const categories = Array.isArray(product.category)
+    ? product.category
+    : [product.category];
+
   return (
     <div className="flex items-center text-[13px] sm:text-sm text-[#434141] ml-5 sm:ml-10 md:ml-36 mt-8 mb-8">
       {/* Home link */}
       <Link to="/">HOME</Link> <FaChevronRight className="ml-2 mr-2" />
       {/* Map over categories and display them as links */}
-      {product.category.map((category, index) => (
+      {categories.map((category, index) => (
         <span key={index} className="flex items-center">
           <Link to={`/category/${category}`}>
             {capitalizeFirstLetter(category)}
           </Link>
-          {index < product.category.length - 1 && (
+          {index < categories.length - 1 && (
             <FaChevronRight className="ml-2 mr-2" />
           )}{" "}
           {/* Chevron between categories */}
