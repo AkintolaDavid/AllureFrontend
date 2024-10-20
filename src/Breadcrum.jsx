@@ -9,7 +9,7 @@ const capitalizeFirstLetter = (word) => {
 
 export const Breadcrum = (props) => {
   const { product } = props;
-
+  console.log(product);
   return (
     <div className="flex items-center text-[13px] sm:text-sm text-[#434141] ml-5 sm:ml-10 md:ml-36 mt-8 mb-8">
       {/* Home link */}

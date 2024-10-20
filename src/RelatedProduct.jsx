@@ -22,8 +22,6 @@ import Items from "./Items";
 export default function RelatedProduct({ relatedproducts = [] }) {
   const [products, setProducts] = useState([]);
   const [apiData, setApiData] = useState(null);
-  const { selectedCategory } = useContext(ShopContext);
-  console.log("Selected Category:", selectedCategory);
 
   useEffect(() => {
     const fetchProducts = async () => {
