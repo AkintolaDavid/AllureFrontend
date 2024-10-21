@@ -7,13 +7,13 @@ const Items = ({ id, name, image, price, description }) => {
   const liked = likedItems.some((item) => item._id === id); // Use unique identifier
 
   return (
-    <div className="border-[2px] rounded-lg flex flex-col items-center">
+    <div className="border-[2px] rounded-md flex flex-col items-center">
       {/* Link wraps the image to navigate to the product display */}
       <Link to={`/product/${id}`}>
         <img
           src={image}
           alt={name}
-          className="w-full h-40 object-cover rounded-md mb-2"
+          className="w-[100%] h-40 object-cover rounded-md mb-2"
         />
       </Link>
       <h2 className="text-md font-semibold mb-1 h-[50px]">{name}</h2>
