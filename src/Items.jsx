@@ -13,7 +13,7 @@ const Items = ({ id, name, image, price, description }) => {
         <img
           src={image}
           alt={name}
-          className="w-[200px] h-40 object-cover rounded-md mb-2"
+          className="w-full h-40 object-cover rounded-md mb-2"
         />
       </Link>
       <h2 className="text-md font-semibold mb-1 h-[50px]">{name}</h2>
