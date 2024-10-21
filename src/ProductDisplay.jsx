@@ -39,7 +39,7 @@ export default function ProductDisplay({ product }) {
             <img
               key={index}
               src={img}
-              className="h-60 w-60 sm:h-80 sm:w-80 md:h-96 md:w-96 rounded-10px"
+              className="h-60 w-60 sm:h-80 sm:w-80 md:h-96 md:w-96 rounded-[10px]"
               alt={`product-${index}`}
             />
           ))}
@@ -49,11 +49,11 @@ export default function ProductDisplay({ product }) {
         <span className="text-xl md:text-2xl lg:text-3xl font-semibold">
           {product.name}
         </span>
-        <span className="flex items-center text-2xl mt-5 md:mt-0">
+        <span className="flex items-center text-2xl mt-3">
           <TbCurrencyNaira className="text-3xl" />
           {product.price}
         </span>
-        <span className="md:text-[12px] lg:text-[14px] mt-5 md:mt-0">
+        <span className="md:text-[12px] lg:text-[14px] mt-3">
           {product.description}
         </span>
 
