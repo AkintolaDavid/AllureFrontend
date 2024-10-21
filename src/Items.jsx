@@ -16,8 +16,9 @@ const Items = ({ id, name, image, price, description }) => {
           className="w-[100%] h-40 object-cover rounded-md mb-2"
         />
       </Link>
-      <h2 className="text-md font-semibold mb-1 h-[50px]">{name}</h2>
-      <div className="w-full flex items-center  justify-between px-0 sm:px-5">
+      <div className="w-full flex items-center  justify-between px-3 sm:px-5">
+        <h2 className="text-md font-semibold mb-1 h-[50px]">{name}</h2>
+
         <p className="text-gray-600 mb-2 flex items-center">
           {" "}
           <TbCurrencyNaira />
