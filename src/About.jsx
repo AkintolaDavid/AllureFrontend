@@ -24,14 +24,16 @@ export default function About() {
           </span>
           <span className="text-center md:text-left mt-4 text-[14px] sm:text-[17px]">
             {" "}
-            We use your information for the following purposes: To process your
-            orders and provide customer service. To personalize your shopping
-            experience and recommend products.   To send you marketing
-            communications, such as newsletters and promotions. To analyze
-            website usage and improve our services. To comply with legal
-            requirements. Sharing Your Information We may share your information
-            with: Third-party service providers: To assist us with order
-            fulfillment,
+            Allure Beauty Jewelry Store is dedicated to providing exceptional
+            and timeless pieces that enhance the beauty and elegance of every
+            individual. Founded by Ashley Nkemdilim, a proud graduate of
+            Covenant University with a degree in Chemical Engineering, the store
+            was born from her passion for jewelry. Inspired by a deep love for
+            the artistry and craftsmanship that defines fine jewelry. With an
+            eye for detail and a commitment to quality, Nkem created Allure
+            Beauty Jewelry Store to offer customers not just beautiful jewelry,
+            but an experience—one where style meets sophistication and personal
+            expression.
           </span>
         </div>{" "}
       </div>{" "}
@@ -41,16 +43,19 @@ export default function About() {
             What Allure Beauty Jewelry Store offers you:
           </span>
           <span className="text-center md:text-left mt-4 text-[14px] sm:text-[17px]">
-            {" "}
-            We use your information for the following purposes: To process your
-            orders and provide customer service. To personalize your shopping
-            experience and recommend products.   To send you marketing
+            At Allure Beauty, we carefully curate each piece to reflect our
+            dedication to craftsmanship, beauty, and luxury, ensuring that every
+            item is as unique as the individual wearing it. Our passion for
+            jewelry drives us to continuously expand our collection, making sure
+            our customers always have access to the most exquisite, on-trend
+            designs.Allure Beauty Jewelry Store offers something for every taste
+            and occasion.
           </span>
         </div>{" "}
         <img
           src={pic2}
           alt="pic"
-          className="w-56 h-80 sm:w-64 lg:h-88 rounded-lg"
+          className="w-52 h-80 sm:w-60 lg:h-88 rounded-lg"
         />
       </div>{" "}
     </div>
