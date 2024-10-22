@@ -22,7 +22,7 @@ export default function GiftCollectionNow() {
             We Take Custom Order
           </span>
           <span className="mt-3 text-lg">Customize your jewelry with us</span>
-          <Link to="category/customize_jewerly">
+          <Link to="category/customize_jewelry">
             {" "}
             <button className="font-semibold text-white mt-3 py-1 px-10 border-white border-2 text-md sm:text-lg hover:bg-white hover:text-gray-400 hover:border-gray-400">
               PLACE ORDER

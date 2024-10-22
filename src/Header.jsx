@@ -166,22 +166,27 @@ export default function Header() {
 
         {/* Show navigation only on screens wider than 768px */}
         {!isScrolled && (
-          <div className="bg-gray-100 h-10 hidden sm:flex items-center justify-between px-10 md:px-16 lg:px-36">
+          <div className="bg-gray-100 h-10 hidden sm:flex items-center justify-between px-3 md:px-8 lg:px-26">
             <Link to="/" className="text-md">
               Home
             </Link>
-            {["rings", "necklace", "earrings", "bracelet", "watch"].map(
-              (category) => (
-                <div key={category} className="text-md relative">
-                  <Link
-                    to={`/category/${category}`}
-                    onClick={() => handleCategoryClick(category)}
-                  >
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </Link>
-                </div>
-              )
-            )}
+            {[
+              { name: "Rings", path: "rings" },
+              { name: "Necklace", path: "necklace" },
+              { name: "Earrings", path: "earrings" },
+              { name: "Bracelet", path: "bracelet" },
+              { name: "Watch", path: "watch" },
+              { name: "Customize Jewelry", path: "customize_jewelry" }, // Updated path with underscore
+            ].map(({ name, path }) => (
+              <div key={path} className="text-md relative">
+                <Link
+                  to={`/category/${path}`} // Correct path here
+                  onClick={() => handleCategoryClick(name)}
+                >
+                  {name}
+                </Link>
+              </div>
+            ))}
           </div>
         )}
 

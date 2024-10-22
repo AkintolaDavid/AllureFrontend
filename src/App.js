@@ -94,7 +94,7 @@ function App() {
               <Route path="/product/:productId" element={<Product />} />
 
               <Route
-                path="category/customize_jewerly"
+                path="category/customize_jewelry"
                 element={<CustomizeJewerly />}
               />
 

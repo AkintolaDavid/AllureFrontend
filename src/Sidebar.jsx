@@ -54,7 +54,13 @@ export default function Sidebar({ handleLogout }) {
       <Link className="menu-item" to="category/bracelet" onClick={closeMenu}>
         Bracelet
       </Link>
-
+      <Link
+        className="menu-item"
+        to="category/customize_jewelry"
+        onClick={closeMenu}
+      >
+        Customize Jewelry
+      </Link>
       {isLoggedIn ? (
         <a className="menu-logout" href="/" onClick={closeMenu}>
           <div

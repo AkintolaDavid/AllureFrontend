@@ -37,7 +37,7 @@ export default function RelatedProduct({ relatedproducts = [] }) {
     };
 
     fetchProducts();
-  }, []);
+  }, [Items]);
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-4 sm:mt-7 px-4 py-7 mb-0 sm:mb-20">
@@ -54,7 +54,7 @@ export default function RelatedProduct({ relatedproducts = [] }) {
             modules={[Mousewheel, Pagination, Keyboard]}
             className="mySwiper"
             breakpoints={{
-              360: {
+              390: {
                 slidesPerView: 2,
                 spaceBetween: 10,
               },
