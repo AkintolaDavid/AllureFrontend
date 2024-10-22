@@ -19,10 +19,10 @@ export default function About() {
           className="w-56 h-64 sm:w-72 sm:h-80 lg:w-80 lg:h-96 rounded-lg"
         />
         <div className="w-[84%] sm:w-[430px] md:w-[480px] flex flex-col">
-          <span className="text-center md:text-left  text-xl sm:text-[28px]">
+          <span className="text-center md:text-left  text-xl sm:text-[30px]">
             Get to know about Allure Beauty Jewelry Store and our Owner
           </span>
-          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[16px]">
+          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[17px]">
             {" "}
             Allure Beauty Jewelry Store is dedicated to providing exceptional
             and timeless pieces that enhance the beauty and elegance of every
@@ -38,10 +38,10 @@ export default function About() {
       </div>{" "}
       <div className="flex flex-col items-center  md:flex-row mt-10 gap-5 sm:gap-10">
         <div className="w-[84%] sm:w-[430px] md:w-[480px] flex flex-col items-center justify-center">
-          <span className="text-center md:text-left  text-xl sm:text-[28px]">
+          <span className="text-center md:text-left  text-xl sm:text-[30px]">
             What Allure Beauty Jewelry Store offers you:
           </span>
-          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[16px]">
+          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[17px]">
             At Allure Beauty, we carefully curate each piece to reflect our
             dedication to craftsmanship, beauty, and luxury, ensuring that every
             item is as unique as the individual wearing it. Our passion for
