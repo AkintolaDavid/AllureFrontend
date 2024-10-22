@@ -19,30 +19,29 @@ export default function About() {
           className="w-56 h-64 sm:w-72 sm:h-80 lg:w-80 lg:h-96 rounded-lg"
         />
         <div className="w-[84%] sm:w-[430px] md:w-[480px] flex flex-col">
-          <span className="text-center md:text-left  text-xl sm:text-3xl">
+          <span className="text-center md:text-left  text-xl sm:text-[28px]">
             Get to know about Allure Beauty Jewelry Store and our Owner
           </span>
-          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[17px]">
+          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[16px]">
             {" "}
             Allure Beauty Jewelry Store is dedicated to providing exceptional
             and timeless pieces that enhance the beauty and elegance of every
             individual. Founded by Ashley Nkemdilim, a proud graduate of
             Covenant University with a degree in Chemical Engineering, the store
             was born from her passion for jewelry. Inspired by a deep love for
-            the artistry and craftsmanship that defines fine jewelry. With an
-            eye for detail and a commitment to quality, Nkem created Allure
-            Beauty Jewelry Store to offer customers not just beautiful jewelry,
-            but an experience—one where style meets sophistication and personal
-            expression.
+            the artistry that defines fine jewelry. With an eye for detail and
+            commitment to quality, Nkem created Allure Beauty Jewelry Store to
+            offer customers an experience—one where style meets sophistication
+            and personal expression.
           </span>
         </div>{" "}
       </div>{" "}
       <div className="flex flex-col items-center  md:flex-row mt-10 gap-5 sm:gap-10">
         <div className="w-[84%] sm:w-[430px] md:w-[480px] flex flex-col items-center justify-center">
-          <span className="text-center md:text-left  text-xl sm:text-3xl">
+          <span className="text-center md:text-left  text-xl sm:text-[28px]">
             What Allure Beauty Jewelry Store offers you:
           </span>
-          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[17px]">
+          <span className="text-center md:text-left mt-4 text-[14px] sm:text-[16px]">
             At Allure Beauty, we carefully curate each piece to reflect our
             dedication to craftsmanship, beauty, and luxury, ensuring that every
             item is as unique as the individual wearing it. Our passion for
