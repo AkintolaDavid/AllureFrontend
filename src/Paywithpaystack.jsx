@@ -67,7 +67,8 @@ const PayWithPaystack = ({ totalAmount }) => {
     };
 
     paystack.newTransaction({
-      key: "pk_live_391e2beeec3dd66d2febb43f9b0d4d0483546ead", // Replace with your Paystack public key
+      // key: "pk_live_391e2beeec3dd66d2febb43f9b0d4d0483546ead",
+      key: "pk_test_391fbce264d08ac84a8c7a4472cc926aa9a1bc8b",
       email: useremail,
       amount: totalAmount * 100, // Amount in kobo (5000 NGN)
       currency: "NGN", // Specify the currency
