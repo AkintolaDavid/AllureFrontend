@@ -1,18 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
 import { FaTimes } from "react-icons/fa";
-import { ShopContext } from "./Context/ShopContext"; // Verify this is correct
-import { useToast } from "@chakra-ui/react";
 import { TbCurrencyNaira } from "react-icons/tb";
 import PayWithPaystack from "./Paywithpaystack";
 import axios from "axios"; // To fetch data from MongoDB
 import { CartContext } from "./Context/CartContext";
 
 export default function Cart() {
-  const toast = useToast();
   const { cart, removeFromCart, updateCartItemQuantity } =
     useContext(CartContext);
   const [products, setProducts] = useState([]);
+  const [showForm, setShowForm] = useState(false); // To show order form after payment success
+  const [formData, setFormData] = useState({
+    customerName: "",
+    customerEmail: "",
+    house_address: "",
+    city: "",
+    state: "",
+    country: "",
+  });
 
   useEffect(() => {
     axios
@@ -40,8 +46,35 @@ export default function Cart() {
     return cart.reduce((total, cartItem) => total + cartItem.quantity, 0);
   };
 
+  const handlePaystackSuccess = () => {
+    // Display order form on successful payment
+    setShowForm(true);
+  };
+
+  const handleSubmitOrder = (e) => {
+    e.preventDefault();
+
+    const orderData = {
+      ...formData,
+      products: cart, // Cart items from context
+      totalAmount: calculateTotal(),
+      orderDate: new Date(),
+    };
+
+    // Send order data to backend
+    axios
+      .post("https://allureserver.onrender.com/api/orders", orderData)
+      .then((res) => {
+        console.log("Order placed successfully:", res.data);
+        // Optionally reset the form or cart here
+      })
+      .catch((err) => {
+        console.error("Failed to place order:", err);
+      });
+  };
+
   return (
-    <div className="cartitems ">
+    <div className="cartitems">
       <div className="w-[100%] flex">
         <p className="w-[30%]">Product</p>
         <p className="w-[20%]">Price</p>
@@ -155,19 +188,74 @@ export default function Cart() {
               </p>
             </div>
           </div>
-          {/* Uncomment to include payment method */}
-          <PayWithPaystack totalAmount={calculateTotal()} />
+
+          {/* Paystack Payment */}
+          <PayWithPaystack
+            totalAmount={calculateTotal()}
+            onSuccess={handlePaystackSuccess}
+          />
         </div>
-        {/* <div className="cartitems-promo">
-          <p>If you have a promo, enter it here</p>
-          <div className="cartitem_promobox">
-            <div className="bg-black">
-              <input type="text" placeholder="promo code" />
-            </div>
-            <button>Submit</button>
-          </div>
-        </div> */}
       </div>
+
+      {/* Show Order Form After Payment */}
+      {showForm && (
+        <form onSubmit={handleSubmitOrder}>
+          <h2>Enter Shipping Details</h2>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={formData.customerName}
+            onChange={(e) =>
+              setFormData({ ...formData, customerName: e.target.value })
+            }
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.customerEmail}
+            onChange={(e) =>
+              setFormData({ ...formData, customerEmail: e.target.value })
+            }
+            required
+          />
+          <input
+            type="text"
+            placeholder="House Address"
+            value={formData.house_address}
+            onChange={(e) =>
+              setFormData({ ...formData, house_address: e.target.value })
+            }
+            required
+          />
+          <input
+            type="text"
+            placeholder="City"
+            value={formData.city}
+            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="State"
+            value={formData.state}
+            onChange={(e) =>
+              setFormData({ ...formData, state: e.target.value })
+            }
+            required
+          />
+          <input
+            type="text"
+            placeholder="Country"
+            value={formData.country}
+            onChange={(e) =>
+              setFormData({ ...formData, country: e.target.value })
+            }
+            required
+          />
+          <button type="submit">Submit Order</button>
+        </form>
+      )}
     </div>
   );
 }
