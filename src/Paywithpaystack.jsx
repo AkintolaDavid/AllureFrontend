@@ -9,6 +9,7 @@ const PayWithPaystack = ({ totalAmount }) => {
   const initiatePayment = () => {
     const paystack = new PaystackPop();
     const useremail = localStorage.getItem("email");
+
     if (!useremail) {
       toast({
         title: "User not logged in!",
@@ -20,6 +21,7 @@ const PayWithPaystack = ({ totalAmount }) => {
       });
       return; // Stop further execution if user is not logged in
     }
+
     const verifyPayment = async (reference) => {
       try {
         const response = await fetch(
@@ -39,6 +41,7 @@ const PayWithPaystack = ({ totalAmount }) => {
           console.log("Payment verified:", result);
           toast({
             title: "Payment verified successfully!",
+            description: `Transaction Reference: ${reference}`,
             status: "success",
             position: "top-right",
             duration: 5000,
@@ -46,7 +49,8 @@ const PayWithPaystack = ({ totalAmount }) => {
           });
         } else {
           toast({
-            title: "Payment verification failed ke.",
+            title: "Payment verification failed",
+            description: result.message || "Please try again later.",
             status: "error",
             position: "top-right",
             duration: 5000,
@@ -67,15 +71,14 @@ const PayWithPaystack = ({ totalAmount }) => {
     };
 
     paystack.newTransaction({
-      // key: "pk_live_391e2beeec3dd66d2febb43f9b0d4d0483546ead",
-      key: "pk_test_391fbce264d08ac84a8c7a4472cc926aa9a1bc8b",
+      key: "pk_test_391fbce264d08ac84a8c7a4472cc926aa9a1bc8b", // Test key
       email: useremail,
-      amount: totalAmount * 100, // Amount in kobo (5000 NGN)
+      amount: totalAmount * 100, // Amount in kobo (e.g., 5000 NGN)
       currency: "NGN", // Specify the currency
       onSuccess: (transaction) => {
         toast({
           title: "Payment successful!",
-          //   description: `Transaction reference: ${transaction.reference}`,
+          description: `Transaction reference: ${transaction.reference}`,
           status: "success",
           position: "top-right",
           duration: 5000,
@@ -109,7 +112,6 @@ const PayWithPaystack = ({ totalAmount }) => {
     });
   };
 
-  // Optional: Function to verify the payment via your backend
   return (
     <div>
       <button onClick={initiatePayment} className="font-semibold">
