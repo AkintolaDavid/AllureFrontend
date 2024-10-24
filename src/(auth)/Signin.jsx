@@ -129,7 +129,7 @@ const Signin = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="example@example.com"
             />
           </div>
@@ -144,11 +144,11 @@ const Signin = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="Enter your password"
             />
             <div className="w-full mt-2">
-              <span className="text-sm flex justify-end text-[#fdb0be] underline underline-offset-1">
+              <span className="text-[16px] flex justify-end text-[#fdb0be] underline underline-offset-1">
                 <Link to="/forgot-password"> Forgot password?</Link>
               </span>
             </div>
@@ -156,14 +156,14 @@ const Signin = () => {
 
           <button
             type="submit"
-            className="flex items-center justify-center bg-[#fdb0be] h-10 w-[280px] sm:w-80 mt-5 mb-7 rounded-md text-white text-md font-semibold"
+            className="flex items-center justify-center bg-[#fdb0be] h-12 w-[280px] sm:w-80 mt-5 mb-7 rounded-md text-white text-md font-semibold"
             disabled={loading} // Disable button when loading
           >
             {loading ? <Spinner size="sm" color="white" /> : "Sign In"}{" "}
             {/* Show spinner or text */}
           </button>
 
-          <div className="text-sm text-center">
+          <div className="text-[16px] text-center">
             <p>
               Don't have an account?{" "}
               <a

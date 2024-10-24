@@ -9,7 +9,7 @@ import neck2 from "./assets/inspogallery/neck2.jpg";
 import brac1 from "./assets/inspogallery/brac1.jpg";
 import brac2 from "./assets/inspogallery/brac2.jpg";
 import "./customjewelry.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useToast, Spinner } from "@chakra-ui/react";
 export default function CustomizeJewelry({
@@ -17,6 +17,7 @@ export default function CustomizeJewelry({
   maxPrice = 100000,
   onPriceChange,
 }) {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   const [BUDGET, setBUDGET] = useState(0);
@@ -94,8 +95,7 @@ export default function CustomizeJewelry({
         duration: 5000,
         isClosable: true,
       });
-      console.log("Response from backend:", response.data.message);
-
+      navigate("/");
       // Clear form fields upon successful submission
       if (response.data.data.images || response.data.data.images.length > 0) {
         // Reset state values here

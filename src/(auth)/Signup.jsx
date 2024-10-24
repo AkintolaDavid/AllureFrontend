@@ -170,7 +170,7 @@ const SignUp = () => {
               value={formData.fullName}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="Enter your full name"
             />
           </div>
@@ -182,7 +182,7 @@ const SignUp = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="example@example.com"
             />
           </div>
@@ -196,7 +196,7 @@ const SignUp = () => {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="Enter phone number"
             />
           </div>
@@ -210,7 +210,7 @@ const SignUp = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="Enter your password"
             />
           </div>
@@ -224,18 +224,18 @@ const SignUp = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
+              className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-12"
               placeholder="Confirm your password"
             />
           </div>
           <button
             type="submit"
-            className="flex items-center justify-center bg-[#fdb0be] h-10 w-[280px] sm:w-80 mt-8 mb-5 rounded-md text-white text-md font-semibold"
+            className="flex items-center justify-center bg-[#fdb0be] h-12 w-[280px] sm:w-80 mt-8 mb-5 rounded-md text-white text-md font-semibold"
             disabled={loading}
           >
             {loading ? <Spinner size="sm" color="white" /> : "Sign Up"}{" "}
           </button>
-          <div className="text-center text-sm">
+          <div className="text-center text-[16px]">
             <p>
               Already have an account?{" "}
               <a
