@@ -62,7 +62,7 @@ export default function Footer() {
         </a>
       </div>
       <hr className="h-0.5 w-[80vw] bg-black mt-5 md:mt-7" />
-      <Link to="/adminverifyotp">
+      <Link to="/adminvrequestotp">
         <span className=" flex items-center justify-center mt-3 mb-3 text-sm">
           Copyright @2024 -All Rights Reserved
         </span>

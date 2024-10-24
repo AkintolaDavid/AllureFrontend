@@ -251,7 +251,7 @@ const UploadProduct = () => {
       </div>
       <button
         type="submit"
-        className={`mt-5 w-[90%] sm:w-[550px] py-2 bg-[#ff7f4a] rounded-lg text-white ${
+        className={`mt-5 w-[90%] sm:w-[550px] py-2 bg-white rounded-lg text-[#fdb0be] ${
           loading ? "opacity-50 cursor-not-allowed" : ""
         }`}
         disabled={loading} // Disable button while loading

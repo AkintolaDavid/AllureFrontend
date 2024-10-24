@@ -47,7 +47,9 @@ const Cartorders = () => {
   const handlecartorders = () => {
     navigate("/cartorders");
   };
-
+  const handlecustomize = () => {
+    navigate("/adminpage");
+  };
   return (
     <div className="flex flex-col items-center">
       <div className="flex w-full justify-end">
@@ -60,7 +62,10 @@ const Cartorders = () => {
       </div>
 
       <div className="h-[50px] flex w-[80%] sm:w-[60%] rounded-md border-[1px] mb-7 mt-4">
-        <button className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffffff] text-[#000000]">
+        <button
+          onClick={handlecustomize}
+          className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffffff] text-[#000000]"
+        >
           Customization Orders
         </button>
         <button
