@@ -4,7 +4,7 @@ import pic3 from "./assets/contact/photo_3_2024-10-21_08-10-00.jpg";
 export default function About() {
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full h-24 md:h-28 bg-[#fab6c2] flex flex-col items-center justify-center">
+      <div className="w-full h-20 md:h-28 bg-[#fab6c2] flex flex-col items-center justify-center">
         <span className="text-white text-2xl md:text-3xl  font-semibold">
           About Us
         </span>
@@ -12,11 +12,11 @@ export default function About() {
           Get to know about Allure Beauty Jewelry store and our Owner
         </span> */}
       </div>
-      <div className="flex flex-col items-center md:items-start md:flex-row mt-10 gap-5 sm:gap-10">
+      <div className="flex flex-col items-center md:items-start md:flex-row mt-6 gap-5 sm:gap-10">
         <img
           src={pic3}
           alt="pic"
-          className="w-56 h-64 sm:w-72 sm:h-80 lg:w-80 lg:h-96 rounded-lg"
+          className="w-60 h-68 sm:w-72 sm:h-80 lg:w-80 lg:h-96 rounded-lg"
         />
         <div className="w-[84%] sm:w-[430px] md:w-[480px] flex flex-col">
           <span className="text-center md:text-left  text-xl sm:text-[30px]">
@@ -54,7 +54,7 @@ export default function About() {
         <img
           src={pic2}
           alt="pic"
-          className="w-52 h-80 sm:w-60 lg:h-88 rounded-lg"
+          className="w-56 h-72 sm:w-60 lg:h-88 rounded-lg"
         />
       </div>{" "}
     </div>

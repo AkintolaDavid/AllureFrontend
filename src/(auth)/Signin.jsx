@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import { ShopContext } from "../Context/ShopContext";
-import { IoCheckmarkCircleSharp } from "react-icons/io5";
-import { useToast } from "@chakra-ui/react";
+import { useToast, Spinner } from "@chakra-ui/react";
+
 const Signin = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -12,8 +11,7 @@ const Signin = () => {
     email: "",
     password: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,6 +22,7 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true
 
     try {
       const response = await axios.post(
@@ -32,8 +31,7 @@ const Signin = () => {
       );
 
       // Assuming your backend sends a token, fullName, and email on successful login
-      const { token, fullName, email } = response.data; // Adjust based on your response structure
-      // alert(`Email: ${email}\nToken: ${token}\nFull Name: ${fullName}`);
+      const { token, fullName, email } = response.data;
 
       // Store token, fullName, and email in local storage
       localStorage.setItem("token", token);
@@ -102,13 +100,13 @@ const Signin = () => {
           isClosable: true,
         });
       }
-
-      setSuccessMessage(""); // Clear any success message on error
+    } finally {
+      setLoading(false); // Set loading to false regardless of the outcome
     }
   };
 
   return (
-    <div className="flex justify-center h-[85vh]  bg-gradient-to-b from-[#FFDFEB] to-[#ffa2c4]">
+    <div className="flex justify-center h-[85vh] bg-gradient-to-b from-[#FFDFEB] to-[#ffa2c4]">
       <Link to="/">
         <IoArrowBack className="absolute top-28 sm:top-40 md:top-44 left-10 sm:left-16 text-3xl md:text-4xl" />
       </Link>
@@ -148,7 +146,7 @@ const Signin = () => {
               required
               className="w-[280px] sm:w-80 pl-2 rounded-md border-2 border-gray-200 h-10"
               placeholder="Enter your password"
-            />{" "}
+            />
             <div className="w-full mt-2">
               <span className="text-sm flex justify-end text-[#fdb0be] underline underline-offset-1">
                 <Link to="/forgot-password"> Forgot password?</Link>
@@ -158,10 +156,11 @@ const Signin = () => {
 
           <button
             type="submit"
-            onClick={handleSubmit}
             className="flex items-center justify-center bg-[#fdb0be] h-10 w-[280px] sm:w-80 mt-5 mb-7 rounded-md text-white text-md font-semibold"
+            disabled={loading} // Disable button when loading
           >
-            Sign In
+            {loading ? <Spinner size="sm" color="white" /> : "Sign In"}{" "}
+            {/* Show spinner or text */}
           </button>
 
           <div className="text-sm text-center">

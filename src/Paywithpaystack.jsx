@@ -2,7 +2,7 @@ import React from "react";
 import PaystackPop from "@paystack/inline-js"; // Import the Paystack library
 import { useToast } from "@chakra-ui/react"; // For notifications (optional)
 
-const PayWithPaystack = ({ totalAmount }) => {
+const PayWithPaystack = ({ totalAmount, onSuccess }) => {
   const toast = useToast();
 
   // Function to handle payment initiation
@@ -41,7 +41,7 @@ const PayWithPaystack = ({ totalAmount }) => {
           console.log("Payment verified:", result);
           toast({
             title: "Payment verified successfully!",
-            description: `Transaction Reference: ${reference}`,
+            // description: `Transaction Reference: ${reference}`,
             status: "success",
             position: "top-right",
             duration: 5000,
@@ -50,7 +50,7 @@ const PayWithPaystack = ({ totalAmount }) => {
         } else {
           toast({
             title: "Payment verification failed",
-            description: result.message || "Please try again later.",
+            // description: result.message || "Please try again later.",
             status: "error",
             position: "top-right",
             duration: 5000,
@@ -78,18 +78,20 @@ const PayWithPaystack = ({ totalAmount }) => {
       onSuccess: (transaction) => {
         toast({
           title: "Payment successful!",
-          description: `Transaction reference: ${transaction.reference}`,
+          // description: `Transaction reference: ${transaction.reference}`,
           status: "success",
           position: "top-right",
           duration: 5000,
           isClosable: true,
         });
 
-        // Verify payment on your backend here if necessary
+        // Call the onSuccess prop with transaction details
+        onSuccess({ reference: transaction.reference });
+
+        // Verify payment on your backend
         verifyPayment(transaction.reference);
       },
       onCancel: () => {
-        // Payment canceled callback
         toast({
           title: "Payment canceled!",
           status: "warning",
@@ -99,7 +101,6 @@ const PayWithPaystack = ({ totalAmount }) => {
         });
       },
       onError: (error) => {
-        // Payment error callback
         toast({
           title: "Payment error!",
           description: error.message,

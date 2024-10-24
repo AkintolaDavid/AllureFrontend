@@ -4,6 +4,7 @@ import { Textarea, useToast } from "@chakra-ui/react";
 import upload from "../assets/images/cloud1-300x300.png";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+
 const UploadProduct = () => {
   const navigate = useNavigate();
   const toast = useToast();
@@ -13,12 +14,13 @@ const UploadProduct = () => {
   const [gender, setGender] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false); // Loading state
   const inputRef = useRef(null);
+
   const handleLogout = () => {
     localStorage.removeItem("adminToken"); // Remove the token from localStorage
     toast({
       title: "Admin logged out successfully",
-      // description: "You have signed in successfully!",
       position: "top-right",
       status: "success",
       duration: 5000,
@@ -26,7 +28,7 @@ const UploadProduct = () => {
     });
     navigate("/adminrequestotp"); // Redirect to OTP verification page
   };
-  // Debugging: Check if the files are being captured correctly
+
   const handleImageUpload = async (files) => {
     const uploadedImages = [];
     console.log("Files to upload: ", files); // Log the files selected
@@ -41,12 +43,6 @@ const UploadProduct = () => {
         const res = await axios.post(
           "https://api.cloudinary.com/v1_1/dvdisnwqt/image/upload",
           formData
-          // {
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //     Authorization: `Bearer ${token}`,
-          //   },
-          // }
         );
         console.log("Uploaded image URL:", res.data.secure_url); // Log each uploaded URL
         uploadedImages.push(res.data.secure_url); // Push Cloudinary image URL to array
@@ -61,6 +57,7 @@ const UploadProduct = () => {
     e.preventDefault();
     console.log("Images before uploading:", images); // Check images before uploading
 
+    setLoading(true); // Set loading to true before starting upload
     const uploadedImageURLs = await handleImageUpload(images); // Upload images to Cloudinary first
     console.log("Uploaded image URLs:", uploadedImageURLs); // Log the final URLs
 
@@ -69,7 +66,6 @@ const UploadProduct = () => {
       price,
       category,
       gender,
-
       images: uploadedImageURLs, // Send Cloudinary URLs to the backend
       description,
     };
@@ -100,18 +96,24 @@ const UploadProduct = () => {
         "Error uploading product: " +
           (err.response?.data?.message || err.message)
       );
+    } finally {
+      setLoading(false); // Set loading to false after upload completion
     }
   };
+
   const handlecustomizationorder = () => {
     navigate("/adminpage");
   };
+  const handlecartorders = () => {
+    navigate("/cartorders");
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
       className="flex flex-col items-center bg-gradient-to-b from-[#fae6ed] to-[#ffa2c4]  h-[90vh]  "
     >
       <div className="flex w-full justify-end">
-        {" "}
         <button
           onClick={handleLogout}
           className="p-2 bg-red-400 flex text-white items-center gap-1 text-2xl rounded-md mt-2 mr-2"
@@ -119,18 +121,21 @@ const UploadProduct = () => {
           <HiOutlineLogout /> Logout
         </button>
       </div>
-      <div className="h-[50px] flex w-[80%] sm:w-[60%] rounded-md border-[1px] mb-7  mt-4">
+      <div className="h-[50px] flex w-[80%] sm:w-[60%] rounded-md border-[1px] mb-7 mt-4">
         <button
           onClick={handlecustomizationorder}
           className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%]  bg-[#ffffff] text-[#000000]"
         >
           Customization Orders
         </button>
-        <button
-          // onClick={handleuploadproduct}
-          className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffa2c4] text-white"
-        >
+        <button className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffa2c4] text-white">
           Upload product
+        </button>
+        <button
+          onClick={handlecartorders}
+          className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffffff] text-[#000000]"
+        >
+          Cart Product Orders
         </button>
       </div>
       <div className="flex flex-col  w-[90%] sm:w-[550px]">
@@ -205,7 +210,7 @@ const UploadProduct = () => {
           placeholder="Description"
           className="pl-2 border-[1.5px] border-[#525252] rounded-lg text-[#525252]"
           required
-        />{" "}
+        />
       </div>
       <div className="flex flex-col items-center gap-4 mt-6">
         <label
@@ -213,7 +218,7 @@ const UploadProduct = () => {
           className="cursor-pointer px-6 py-2 bg-white text-black rounded-md shadow-md flex flex-col items-center "
         >
           Click to Upload Image
-          <img src={upload} alt="sss" className="h-24" />
+          <img src={upload} alt="upload" className="h-24" />
         </label>
         <input
           id="file-upload"
@@ -221,87 +226,43 @@ const UploadProduct = () => {
           multiple
           onChange={(e) => setImages(e.target.files)} // Capture selected files
           required
-          className="hidden" // Hide the default input appearance
+          className="hidden"
+          ref={inputRef}
         />
-        {images && images.length > 0 && (
-          <p className="text-sm text-gray-500">
-            {images.length} file(s) selected
-          </p>
+        {images.length > 0 && (
+          <div>
+            <h3 className="text-white text-lg">Selected Images:</h3>
+            <ul className="flex flex-wrap">
+              {Array.from(images).map((image, index) => (
+                <li
+                  key={index}
+                  className="w-16 h-16 border-2 border-gray-300 m-1"
+                >
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt={`Preview ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
-
-      <button type="submit" className="bg-white p-4 mt-7 rounded-lg">
-        Upload Product
+      <button
+        type="submit"
+        className={`mt-5 w-[90%] sm:w-[550px] py-2 bg-[#ff7f4a] rounded-lg text-white ${
+          loading ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        disabled={loading} // Disable button while loading
+      >
+        {loading ? "Uploading..." : "Upload Product"}
       </button>
+      {loading && (
+        <div className="mt-4 text-white">Loading, please wait...</div>
+      )}
     </form>
   );
 };
 
 export default UploadProduct;
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-
-// const ShopCategory = ({ category, banner }) => {
-//   const [products, setProducts] = useState([]);
-
-//   // Fetch products by category when the component mounts
-//   useEffect(() => {
-//     const fetchProductsByCategory = async () => {
-
-//         console.log(response.data.products);
-//         // Assuming 'category' is the selected category
-//         console.log(category);
-//         setProducts(
-//           response.data.products.filter((item) => {
-//             // If the selected category is 'men' or 'women', filter by gender
-//             if (category === "men" || category === "women") {
-//               return item.gender === category;
-//             }
-
-//             return item.category === category;
-//           })
-//         );
-
-//         console.log(category);
-//       } catch (error) {
-//         console.error("Error fetching products by category", error);
-//       }
-//     };
-
-//     fetchProductsByCategory();
-//   }, [category]);
-
-//   return (
-//     <div className="flex flex-col items-center justify-center w-full">
-//       {/* Display category banner */}
-//       <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96">
-//         <img
-//           className="h-full w-full object-cover"
-//           src={banner}
-//           alt={`${category} banner`}
-//         />
-//       </div>
-
-//       <h1 className="category-title">
-//         {category.charAt(0).toUpperCase() + category.slice(1)} Collection
-//       </h1>
-
-//       {/* Display products */}
-//       <div className="product-grid">
-//         {products.length > 0 ? (
-//           products.map((product) => (
-//             <div key={product._id} className="product-card">
-//               <img src={product.images[0]} alt={product.name} />
-//               <h2>{product.name}</h2>
-//               <p>${product.price}</p>
-//               <p>{product.gender === "men" ? "Men's" : "Women's"} Jewelry</p>
-//             </div>
-//           ))
-//         ) : (
-//           <p>No products found in this category</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };

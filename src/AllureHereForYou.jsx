@@ -11,8 +11,9 @@ export default function AllureHereForYou() {
   return (
     <>
       {" "}
-      <div className="flex flex-col justify-center items-center h-auto md:h-[400px] py-8 gap-10 sm:gap-16 ">
-        <div className="text-2xl text-center w-[80%] sm:w-[full] md:text-3xl font-semibold">
+      <div className="flex flex-col justify-center items-center h-auto md:h-[450px] py-8 gap-10 sm:gap-16 ">
+        <div className="text-[25px] md:text-3xl text-center ">
+          {" "}
           Elevate Your Experience With Allure
         </div>
         <div className="grid grid-cols-2 px-3 gap-5 sm:gap-0 md:flex w-full justify-around">

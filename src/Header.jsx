@@ -11,7 +11,6 @@ import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { useToast } from "@chakra-ui/react";
 import Sidebar from "./Sidebar";
 import "./Sidebar.css";
-import { useSelector } from "react-redux";
 import { useLikedItems } from "./Context/LikedProductsContext";
 import { CartContext } from "./Context/CartContext";
 

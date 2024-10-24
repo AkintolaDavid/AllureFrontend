@@ -31,6 +31,7 @@ import ProtectedAdminRoute from "./ProtectedAdminRoute";
 import { Provider } from "react-redux"; // Import Redux hooks
 import store from "./store/store"; // Import Redux store
 import UploadProduct from "./(auth)/UploadProduct";
+import Cartorders from "./(auth)/Cartorders";
 
 // App component
 function App() {
@@ -106,18 +107,26 @@ function App() {
               <Route
                 path="/uploadproduct"
                 element={
-                  // <ProtectedAdminRoute>
-                  <UploadProduct />
-                  // </ProtectedAdminRoute>
+                  <ProtectedAdminRoute>
+                    <UploadProduct />
+                  </ProtectedAdminRoute>
+                }
+              />
+              <Route
+                path="/cartorders"
+                element={
+                  <ProtectedAdminRoute>
+                    <Cartorders />
+                  </ProtectedAdminRoute>
                 }
               />
 
               <Route
                 path="/adminpage"
                 element={
-                  // <ProtectedAdminRoute>
-                  <AdminPage />
-                  // </ProtectedAdminRoute>
+                  <ProtectedAdminRoute>
+                    <AdminPage />
+                  </ProtectedAdminRoute>
                 }
               />
             </Routes>

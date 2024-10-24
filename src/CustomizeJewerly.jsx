@@ -10,14 +10,14 @@ import brac1 from "./assets/inspogallery/brac1.jpg";
 import brac2 from "./assets/inspogallery/brac2.jpg";
 import "./customjewelry.css";
 import { Link } from "react-router-dom";
-import { useToast } from "@chakra-ui/react";
 import axios from "axios";
-
+import { useToast, Spinner } from "@chakra-ui/react";
 export default function CustomizeJewelry({
   minPrice = 0,
   maxPrice = 100000,
   onPriceChange,
 }) {
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
   const [BUDGET, setBUDGET] = useState(0);
   const [maxValue, setMaxValue] = useState(maxPrice);
@@ -37,7 +37,7 @@ export default function CustomizeJewelry({
   };
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
+    setLoading(true);
     const data = {
       BUDGET,
       engraving,
@@ -130,6 +130,8 @@ export default function CustomizeJewelry({
           isClosable: true,
         });
       }
+    } finally {
+      setLoading(false); // Set loading to false regardless of the outcome
     }
   };
 
@@ -381,7 +383,11 @@ export default function CustomizeJewelry({
           type="submit"
           className="mt-8 w-[80%] sm:w-[300px] bg-white text-black rounded-lg h-10 font-bold hover:bg-gray-200"
         >
-          Submit Customization
+          {loading ? (
+            <Spinner size="sm" color="white" />
+          ) : (
+            " Submit Customization"
+          )}{" "}
         </button>
       </form>
     </div>

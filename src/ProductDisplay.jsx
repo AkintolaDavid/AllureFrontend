@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TbCurrencyNaira } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { CartContext } from "./Context/CartContext";
 
@@ -8,8 +8,20 @@ export default function ProductDisplay({ product }) {
   const { addToCart } = useContext(CartContext);
   const [selectedSize, setSelectedSize] = useState("");
   const toast = useToast();
+  const { productId } = useParams(); // Get product ID from URL
 
-  console.log("Product object:", product); // Log the product object
+  useEffect(() => {
+    // Reset the selected size when the product ID changes
+    setSelectedSize("");
+    // Fetch the product details based on the productId
+    const fetchProduct = async () => {
+      // You would implement your fetching logic here using productId
+      // Example: const fetchedProduct = await fetch(`/api/products/${productId}`);
+      // and then set your product state
+    };
+
+    fetchProduct();
+  }, [productId]); // Runs when productId changes
 
   const getSizeOptions = (categories) => {
     const categoryList = Array.isArray(categories) ? categories : [categories];
@@ -64,7 +76,7 @@ export default function ProductDisplay({ product }) {
               {sizeOptions.map((size) => (
                 <div
                   key={size}
-                  onClick={() => setSelectedSize(size)}
+                  onClick={() => setSelectedSize(size)} // Set selected size on click
                   className={`border-[1px] py-1 px-4 border-black cursor-pointer ${
                     selectedSize === size ? "bg-gray-700 text-white" : ""
                   }`}
@@ -91,7 +103,6 @@ export default function ProductDisplay({ product }) {
                 isClosable: true,
               });
             } else if (!product._id) {
-              // Changed from product.id to product._id
               toast({
                 title: "Product ID is not defined.",
                 position: "top-right",
@@ -100,8 +111,7 @@ export default function ProductDisplay({ product }) {
                 isClosable: true,
               });
             } else {
-              console.log("Adding to cart:", product._id, selectedSize); // Changed from product.id to product._id
-              addToCart(product._id, selectedSize); // Changed from product.id to product._id
+              addToCart(product._id, selectedSize);
             }
           }}
         >

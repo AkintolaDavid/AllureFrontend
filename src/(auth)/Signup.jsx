@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import { IoCheckmarkCircleSharp } from "react-icons/io5";
-import { useToast } from "@chakra-ui/react";
+import { useToast, Spinner } from "@chakra-ui/react";
 const SignUp = () => {
   const toast = useToast();
   const navigate = useNavigate();
@@ -17,9 +16,7 @@ const SignUp = () => {
     fullName: "", // Add full name field
   });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
+  const [loading, setLoading] = useState(false);
   // Handle form input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,8 +24,9 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (formData.password.length < 6) {
-      return toast({
+      toast({
         title: "Password too short",
         description: "Password must be at least 6 characters long",
         position: "top-right",
@@ -36,11 +34,13 @@ const SignUp = () => {
         duration: 5000,
         isClosable: true,
       });
+      setLoading(false);
+      return; // Ensure loading is false before return
     }
 
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
-      return toast({
+      toast({
         title: "Passwords do not match",
         description: "Please make sure both passwords are the same.",
         position: "top-right",
@@ -48,11 +48,13 @@ const SignUp = () => {
         duration: 5000,
         isClosable: true,
       });
+      setLoading(false);
+      return;
     }
 
     // Validate email format
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      return toast({
+      toast({
         title: "Invalid email",
         description: "Please enter a valid email address.",
         position: "top-right",
@@ -60,11 +62,13 @@ const SignUp = () => {
         duration: 5000,
         isClosable: true,
       });
+      setLoading(false);
+      return;
     }
 
     // Validate phone number format
     if (!/^\d{11}$/.test(formData.phone)) {
-      return toast({
+      toast({
         title: "Invalid phone number",
         description: "Please enter a valid 11-digit phone number.",
         position: "top-right",
@@ -72,6 +76,8 @@ const SignUp = () => {
         duration: 5000,
         isClosable: true,
       });
+      setLoading(false);
+      return;
     }
 
     try {
@@ -86,16 +92,17 @@ const SignUp = () => {
         }
       );
 
-      setSuccess(response.data.message);
-      toast({
-        title: "User Signup Successful",
-        description: "You have signed up successfully!",
-        position: "top-right",
-        status: "success", // Set status to success
-        duration: 5000,
-        isClosable: true,
-      });
-      setError(""); // Clear error on success
+      if (response.status === 200) {
+        toast({
+          title: "User Signup Successful",
+          description: "You have signed up successfully!",
+          position: "top-right",
+          status: "success", // Set status to success
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+
       setFormData({
         email: "",
         phone: "",
@@ -108,10 +115,7 @@ const SignUp = () => {
         navigate("/signin"); // Redirect to home
       }, 2000);
     } catch (error) {
-      // alert("second");
-      console.log(error); // Log the full error for debugging
       if (error.response && error.response.data) {
-        setError(error.response.data.message);
         toast({
           title: "Signup Failed",
           description: error.response.data.message,
@@ -121,7 +125,6 @@ const SignUp = () => {
           isClosable: true,
         });
       } else if (error.request) {
-        setError("No response from the server. Please try again later.");
         toast({
           title: "Server Unresponsive",
           description: "No response from the server. Please try again later.",
@@ -131,7 +134,6 @@ const SignUp = () => {
           isClosable: true,
         });
       } else {
-        setError("Something went wrong. Please try again.");
         toast({
           title: "Signup Error",
           description: "Something went wrong. Please try again.",
@@ -141,11 +143,13 @@ const SignUp = () => {
           isClosable: true,
         });
       }
+    } finally {
+      setLoading(false); // Set loading to false regardless of the outcome
     }
   };
 
   return (
-    <div className="flex justify-center h-[auto] pb-10 bg-gradient-to-b from-[#FFDFEB] to-[#ffa2c4]">
+    <div className="flex justify-center h-[100vh] pb-10 bg-gradient-to-b from-[#FFDFEB] to-[#ffa2c4]">
       <Link to="/signin">
         {" "}
         <IoArrowBack className="absolute top-10 left-16 text-4xl" />
@@ -154,13 +158,7 @@ const SignUp = () => {
         <h2 className="text-[20px] sm:text-2xl text-[#fdb0be] font-semibold mt-3">
           Create your Allure Account
         </h2>
-        {/* {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && (
-          <div className="flex flex-col items-center absolute top-[35%] left-[35.5%] bg-white py-10 px-6 rounded-lg">
-            <p className="text-red-600 text-2xl font-semibold  ">{success}</p>
-            <IoCheckmarkCircleSharp className="text-4xl mt-4 text-red-600" />
-          </div>
-        )} */}
+
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
           <div className="flex flex-col mt-1">
             <label className="mb-1 text-lg text-white font-medium">
@@ -233,8 +231,9 @@ const SignUp = () => {
           <button
             type="submit"
             className="flex items-center justify-center bg-[#fdb0be] h-10 w-[280px] sm:w-80 mt-8 mb-5 rounded-md text-white text-md font-semibold"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? <Spinner size="sm" color="white" /> : "Sign Up"}{" "}
           </button>
           <div className="text-center text-sm">
             <p>

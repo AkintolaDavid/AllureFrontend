@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
-
 import { HiOutlineLogout } from "react-icons/hi";
-const AdminPage = () => {
+
+const Cartorders = () => {
   const [customizes, setCustomizes] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -14,31 +14,24 @@ const AdminPage = () => {
     const fetchCustomizes = async () => {
       try {
         const response = await axios.get(
-          "https://allureserver.onrender.com/api/customizes"
-          // {
-
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //     Authorization: `Bearer ${token}`,
-          //   },
-          // }
+          "https://allureserver.onrender.com/api/getorders"
         );
-        const allProducts = response.data.products;
-        // console.log(allProducts);
+        const allProducts = response.data.orders;
+        console.log(allProducts);
         setCustomizes(allProducts);
       } catch (err) {
-        setError("Failed to fetch customizations");
-        console.error("Error fetching customizations:", err);
+        setError("Failed to fetch orders");
+        console.error("Error fetching orders:", err);
       }
     };
 
-    fetchCustomizes(); // Fetch customizations when the component mounts
+    fetchCustomizes();
   }, []); // No dependencies, fetch only once
+
   const handleLogout = () => {
     localStorage.removeItem("adminToken"); // Remove the token from localStorage
     toast({
       title: "Admin logged out successfully",
-      // description: "You have signed in successfully!",
       position: "top-right",
       status: "success",
       duration: 5000,
@@ -46,9 +39,11 @@ const AdminPage = () => {
     });
     navigate("/adminrequestotp"); // Redirect to OTP verification page
   };
+
   const handleuploadproduct = () => {
     navigate("/uploadproduct");
   };
+
   const handlecartorders = () => {
     navigate("/cartorders");
   };
@@ -56,7 +51,6 @@ const AdminPage = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex w-full justify-end">
-        {" "}
         <button
           onClick={handleLogout}
           className="p-2 bg-red-400 flex text-white items-center gap-1 text-2xl rounded-md mt-2 mr-2"
@@ -65,11 +59,8 @@ const AdminPage = () => {
         </button>
       </div>
 
-      <div className="h-[50px] flex w-[80%] sm:w-[60%] rounded-md border-[1px] mb-7  mt-4">
-        <button
-          // onClick={handleToggleprofile}
-          className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffa2c4] text-white"
-        >
+      <div className="h-[50px] flex w-[80%] sm:w-[60%] rounded-md border-[1px] mb-7 mt-4">
+        <button className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffffff] text-[#000000]">
           Customization Orders
         </button>
         <button
@@ -80,54 +71,43 @@ const AdminPage = () => {
         </button>
         <button
           onClick={handlecartorders}
-          className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffffff] text-[#000000]"
+          className="flex items-center justify-center px-4 rounded-[4px] py-2 border-[#EEEEEE] w-[50%] bg-[#ffa2c4] text-white"
         >
           Cart Product Orders
         </button>
       </div>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
       <div className="flex flex-col gap-4 w-full overflow-auto">
         <table style={{ borderCollapse: "collapse", width: "100%" }}>
           <thead>
             <tr>
               <th style={{ border: "1px solid black", padding: "8px" }}>
-                UserId
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                BUDGET
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Engraving
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Jewelry Type
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Material Type
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Engraving Text
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Engraving Part
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                More Info
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Font Style
-              </th>
-              <th style={{ border: "1px solid black", padding: "8px" }}>
-                Fullname
+                Name
               </th>
               <th style={{ border: "1px solid black", padding: "8px" }}>
                 Email
               </th>
               <th style={{ border: "1px solid black", padding: "8px" }}>
-                Phone Number
+                House address
               </th>
               <th style={{ border: "1px solid black", padding: "8px" }}>
-                Images
+                City
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                State
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Country
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Products
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Total Amount
+              </th>
+              <th style={{ border: "1px solid black", padding: "8px" }}>
+                Order Date
               </th>
             </tr>
           </thead>
@@ -135,43 +115,42 @@ const AdminPage = () => {
             {customizes.map((customItem, index) => (
               <tr key={index}>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.userId}
+                  {customItem.customerName}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.BUDGET}
+                  {customItem.customerEmail}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.engraving}
+                  {customItem.house_address}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.jewelryType}
+                  {customItem.city}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.materialType}
+                  {customItem.state}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.engravingText}
+                  {customItem.country}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.engravingPart}
+                  {customItem.products.map((product, idx) => (
+                    <div key={idx} style={{ marginBottom: "8px" }}>
+                      <p>Product ID: {product.productId}</p>
+                      <p>Quantity: {product.quantity}</p>
+                      <p>Size: {product.size}</p>
+                      <img
+                        src={product.imageUrl[0]} // Accessing the first image URL
+                        alt={`Product ${product.productId}`}
+                        style={{ maxWidth: "100px", maxHeight: "100px" }}
+                      />
+                    </div>
+                  ))}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.moreInfo}
+                  {customItem.totalAmount}
                 </td>
                 <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.fontStyle}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.fullname}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.email}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.phonenumber}
-                </td>
-                <td style={{ border: "1px solid black", padding: "8px" }}>
-                  {customItem.images}
+                  {new Date(customItem.orderDate).toLocaleDateString()}
                 </td>
               </tr>
             ))}
@@ -181,4 +160,5 @@ const AdminPage = () => {
     </div>
   );
 };
-export default AdminPage;
+
+export default Cartorders;

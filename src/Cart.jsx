@@ -3,14 +3,29 @@ import "./Cart.css";
 import { FaTimes } from "react-icons/fa";
 import { TbCurrencyNaira } from "react-icons/tb";
 import PayWithPaystack from "./Paywithpaystack";
-import axios from "axios"; // To fetch data from MongoDB
+import axios from "axios";
+import { useToast } from "@chakra-ui/react";
 import { CartContext } from "./Context/CartContext";
+import { useNavigate } from "react-router-dom";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react"; // Import Chakra UI components
 
 export default function Cart() {
-  const { cart, removeFromCart, updateCartItemQuantity } =
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { cart, removeFromCart, updateCartItemQuantity, clearCart } =
     useContext(CartContext);
   const [products, setProducts] = useState([]);
-  const [showForm, setShowForm] = useState(false); // To show order form after payment success
   const [formData, setFormData] = useState({
     customerName: "",
     customerEmail: "",
@@ -20,12 +35,16 @@ export default function Cart() {
     country: "",
   });
 
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra UI modal hooks
+
+  // Fetch product data including imageUrl from backend
   useEffect(() => {
     axios
       .get("https://allureserver.onrender.com/api/products")
       .then((res) => {
         if (Array.isArray(res.data.products)) {
           setProducts(res.data.products);
+          console.log("Fetched products:", res.data.products); // Log the fetched products here
         } else {
           console.error("Expected an array but received:", res.data.products);
         }
@@ -47,16 +66,30 @@ export default function Cart() {
   };
 
   const handlePaystackSuccess = () => {
-    // Display order form on successful payment
-    setShowForm(true);
+    onOpen();
+    clearCart();
   };
 
+  // Send cart data along with the product image URL in the order
   const handleSubmitOrder = (e) => {
     e.preventDefault();
 
+    // Map cart products to include imageUrl for each item
+    const orderProducts = cart.map((cartItem) => {
+      const product = products.find((p) => p._id === cartItem.productId);
+      return {
+        productId: product._id,
+        name: product.name,
+        price: product.price,
+        quantity: cartItem.quantity,
+        size: cartItem.size,
+        imageUrl: product.images, // Select the first image
+      };
+    });
+
     const orderData = {
       ...formData,
-      products: cart, // Cart items from context
+      products: orderProducts,
       totalAmount: calculateTotal(),
       orderDate: new Date(),
     };
@@ -65,8 +98,16 @@ export default function Cart() {
     axios
       .post("https://allureserver.onrender.com/api/orders", orderData)
       .then((res) => {
-        console.log("Order placed successfully:", res.data);
-        // Optionally reset the form or cart here
+        toast({
+          title: "Order placed successfully",
+          position: "top-right",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        clearCart(); // Clear the cart after order is placed
+        onClose(); // Close the modal after submitting
+        navigate("/");
       })
       .catch((err) => {
         console.error("Failed to place order:", err);
@@ -96,7 +137,7 @@ export default function Cart() {
               <div className="cartitem_format cartitem_format_main w-[100%] flex">
                 <div className="cartitemdiv w-[30%]">
                   <img
-                    src={product.images}
+                    src={product.images} // Cloudinary URL for the image
                     className="cartitem_image"
                     alt={product.name}
                   />
@@ -197,65 +238,85 @@ export default function Cart() {
         </div>
       </div>
 
-      {/* Show Order Form After Payment */}
-      {showForm && (
-        <form onSubmit={handleSubmitOrder}>
-          <h2>Enter Shipping Details</h2>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={formData.customerName}
-            onChange={(e) =>
-              setFormData({ ...formData, customerName: e.target.value })
-            }
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={formData.customerEmail}
-            onChange={(e) =>
-              setFormData({ ...formData, customerEmail: e.target.value })
-            }
-            required
-          />
-          <input
-            type="text"
-            placeholder="House Address"
-            value={formData.house_address}
-            onChange={(e) =>
-              setFormData({ ...formData, house_address: e.target.value })
-            }
-            required
-          />
-          <input
-            type="text"
-            placeholder="City"
-            value={formData.city}
-            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-            required
-          />
-          <input
-            type="text"
-            placeholder="State"
-            value={formData.state}
-            onChange={(e) =>
-              setFormData({ ...formData, state: e.target.value })
-            }
-            required
-          />
-          <input
-            type="text"
-            placeholder="Country"
-            value={formData.country}
-            onChange={(e) =>
-              setFormData({ ...formData, country: e.target.value })
-            }
-            required
-          />
-          <button type="submit">Submit Order</button>
-        </form>
-      )}
+      {/* Modal for Shipping Details Form */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Enter Shipping Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <form onSubmit={handleSubmitOrder}>
+              <Input
+                placeholder="Full Name"
+                value={formData.customerName}
+                onChange={(e) =>
+                  setFormData({ ...formData, customerName: e.target.value })
+                }
+                required
+                mb={3} // Margin bottom
+              />
+              <Input
+                type="email"
+                placeholder="Email"
+                value={formData.customerEmail}
+                onChange={(e) =>
+                  setFormData({ ...formData, customerEmail: e.target.value })
+                }
+                required
+                mb={3}
+              />
+              <Input
+                type="text"
+                placeholder="House Address"
+                value={formData.house_address}
+                onChange={(e) =>
+                  setFormData({ ...formData, house_address: e.target.value })
+                }
+                required
+                mb={3}
+              />
+              <Input
+                type="text"
+                placeholder="City"
+                value={formData.city}
+                onChange={(e) =>
+                  setFormData({ ...formData, city: e.target.value })
+                }
+                required
+                mb={3}
+              />
+              <Input
+                type="text"
+                placeholder="State"
+                value={formData.state}
+                onChange={(e) =>
+                  setFormData({ ...formData, state: e.target.value })
+                }
+                required
+                mb={3}
+              />
+              <Input
+                type="text"
+                placeholder="Country"
+                value={formData.country}
+                onChange={(e) =>
+                  setFormData({ ...formData, country: e.target.value })
+                }
+                required
+                mb={3}
+              />
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleSubmitOrder}>
+              Submit
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

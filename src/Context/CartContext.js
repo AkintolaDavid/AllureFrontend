@@ -3,6 +3,9 @@ import React, { createContext, useState, useEffect } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const clearCart = () => {
+    setCart([]);
+  };
   const [cart, setCart] = useState(() => {
     // Load the cart from localStorage on initialization
     const savedCart = localStorage.getItem("cart");
@@ -55,7 +58,13 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateCartItemQuantity }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateCartItemQuantity,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
